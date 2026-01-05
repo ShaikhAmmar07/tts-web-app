@@ -1,14 +1,16 @@
 import subprocess
 import os
+import shutil
 
 PIPER_MODEL = "models/en-us.onnx"
+PIPER_BIN = shutil.which("piper") or "./piper_bin"
 
 def generate_audio(text: str, output_path: str, speed: float = 1.0):
     """Generate audio using Piper TTS with specified speed."""
     length_scale = 1.0 / speed
     
     cmd = [
-        "piper",
+        PIPER_BIN,
         "--model", PIPER_MODEL,
         "--output_file", output_path,
         "--length_scale", str(length_scale)
